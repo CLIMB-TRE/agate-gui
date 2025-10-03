@@ -1,6 +1,12 @@
 import { useMemo, useCallback } from "react";
-import { AgGridReact, CustomCellRendererProps} from "ag-grid-react";
-import { AllCommunityModule, ColDef, ModuleRegistry, SuppressKeyboardEventParams, themeQuartz } from "ag-grid-community";
+import { AgGridReact, CustomCellRendererProps } from "ag-grid-react";
+import {
+  AllCommunityModule,
+  ColDef,
+  ModuleRegistry,
+  SuppressKeyboardEventParams,
+  themeQuartz,
+} from "ag-grid-community";
 
 import { IngestionItem } from "./IngestionItem";
 
@@ -43,18 +49,18 @@ export function ResultsTable({
     (uuid: string) => {
       httpPathHandler(`archive/${uuid}`).then(() => handleRefreshClick());
     },
-    [httpPathHandler, handleRefreshClick]
+    [httpPathHandler, handleRefreshClick],
   );
 
   const delete_record = useCallback(
     (uuid: string) => {
       httpPathHandler(`delete/${uuid}`).then(() => handleRefreshClick());
     },
-    [httpPathHandler, handleRefreshClick]
+    [httpPathHandler, handleRefreshClick],
   );
 
   // Define AG Grid columns
-    const columnDefs: ColDef[] = useMemo(
+  const columnDefs: ColDef[] = useMemo(
     () => [
       {
         headerName: "Name",
@@ -72,7 +78,9 @@ export function ResultsTable({
         cellRenderer: (params: CustomCellRendererProps) => {
           return (
             <div className="agate-progress-wrapper">
-              <span className="agate-progress-label">{status(params.value)}</span>
+              <span className="agate-progress-label">
+                {status(params.value)}
+              </span>
               <div className="agate-progress-bar">
                 <div className={`agate-progress-fill ${params.value}`} />
               </div>
@@ -84,13 +92,15 @@ export function ResultsTable({
         headerName: "Published",
         field: "is_published",
         flex: 1,
-        cellRenderer: (params: CustomCellRendererProps) => bool_icon(params.value),
+        cellRenderer: (params: CustomCellRendererProps) =>
+          bool_icon(params.value),
       },
       {
         headerName: "Test Attempt",
         field: "is_test_attempt",
         flex: 1,
-        cellRenderer: (params: CustomCellRendererProps) => bool_icon(params.value),
+        cellRenderer: (params: CustomCellRendererProps) =>
+          bool_icon(params.value),
       },
       {
         headerName: "Actions",
@@ -101,12 +111,16 @@ export function ResultsTable({
             <button
               className="agate-row-button"
               tabIndex={0} // To allow focussing with keyboard
-              onClick={() => archive(params.value)}>Archive
+              onClick={() => archive(params.value)}
+            >
+              Archive
             </button>
             <button
               className="agate-row-button"
               tabIndex={0} // To allow focussing with keyboard
-              onClick={() => delete_record(params.value)}>Delete
+              onClick={() => delete_record(params.value)}
+            >
+              Delete
             </button>
           </div>
         ),
@@ -118,21 +132,30 @@ export function ResultsTable({
           const key = e.key;
 
           // Allow arrow keys to move focus even if a button inside is focused
-          if (key === "ArrowLeft" || key === "ArrowRight" || key === "ArrowUp" || key === "ArrowDown") {
+          if (
+            key === "ArrowLeft" ||
+            key === "ArrowRight" ||
+            key === "ArrowUp" ||
+            key === "ArrowDown"
+          ) {
             return false; // don't suppress → let AG Grid handle it
           }
 
           // Let other keys (Enter, Space) behave normally inside the button
           return true;
         },
-        cellStyle: { display: "flex", justifyContent: "left", alignItems: "center" },
+        cellStyle: {
+          display: "flex",
+          justifyContent: "left",
+          alignItems: "center",
+        },
       },
     ],
-    [archive, delete_record]
+    [archive, delete_record],
   );
 
   return (
-      <AgGridReact
+    <AgGridReact
       className="agate-table"
       rowData={data}
       columnDefs={columnDefs}

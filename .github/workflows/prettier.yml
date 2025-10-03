@@ -1,0 +1,19 @@
+name: Prettier Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # npx available on github runners
+      - name: Run Prettier check
+        run: npx prettier -c lib/

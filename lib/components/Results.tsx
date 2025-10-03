@@ -3,28 +3,28 @@ import { ResultsTable } from "./ResultsTable";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 export function Results(props: ResultsProps) {
+  const handleRefreshClick = () => {
+    props.handleSearch();
+  };
 
-    const handleRefreshClick = () => {
-      props.handleSearch()
-    };
+  useEffect(() => {
+    //Implementing the setInterval method
+    const interval = setInterval(() => {
+      props.handleSearch();
+    }, 10000);
 
-    useEffect(() => {
-          //Implementing the setInterval method
-          const interval = setInterval(() => {
-            props.handleSearch();
-          }, 10000);
+    //Clearing the interval
+    return () => clearInterval(interval);
+  });
 
-          //Clearing the interval
-          return () => clearInterval(interval);
-      });
-
-    return (
-      <Card className="flex-grow-1">
-        <Card.Header>
-          <Card.Title>Ingestion
+  return (
+    <Card className="flex-grow-1">
+      <Card.Header>
+        <Card.Title>
+          Ingestion
           <Button
             className="float-end"
             size="sm"
@@ -33,19 +33,20 @@ export function Results(props: ResultsProps) {
           >
             Refresh
           </Button>
-          </Card.Title>
-        </Card.Header>
-        <Card.Body >
-          {props.resultError ? (
-            <Alert variant="danger">Error: {props.resultError.message}</Alert>
-          ) : (
-            <ResultsTable
-                data={props.resultData?.results || []} httpPathHandler= {props.httpPathHandler} handleRefreshClick={props.handleSearch}
-            />
-          )}
-        </Card.Body>
-        <Card.Footer>
-        </Card.Footer>
-      </Card>
-    );
-  }
+        </Card.Title>
+      </Card.Header>
+      <Card.Body>
+        {props.resultError ? (
+          <Alert variant="danger">Error: {props.resultError.message}</Alert>
+        ) : (
+          <ResultsTable
+            data={props.resultData?.results || []}
+            httpPathHandler={props.httpPathHandler}
+            handleRefreshClick={props.handleSearch}
+          />
+        )}
+      </Card.Body>
+      <Card.Footer></Card.Footer>
+    </Card>
+  );
+}

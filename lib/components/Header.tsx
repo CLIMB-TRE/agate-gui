@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Stack from "react-bootstrap/Stack";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-import {useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 function HeaderText({ label, value }: { label: string; value: string }) {
   return (
@@ -51,7 +51,8 @@ export function Header(props: HeaderProps) {
       return props
         .httpPathHandler("profile/")
         .then((response) => response.json())
-        .then((data) => {console.log(data);
+        .then((data) => {
+          console.log(data);
           return { username: data.data.username, site: data.data.site };
         });
     },

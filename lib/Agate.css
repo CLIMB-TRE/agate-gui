@@ -14,11 +14,11 @@
 
 .agate-progress-bar {
   width: 100%;
-  background-color: var(--bs-border-color);   /* unfilled portion */
+  background-color: var(--bs-border-color); /* unfilled portion */
   height: 6px;
   border-radius: 5px;
   overflow: hidden;
-  position: relative;       /* ensures fill sits inside */
+  position: relative; /* ensures fill sits inside */
 }
 
 .agate-progress-fill {
@@ -29,13 +29,30 @@
 }
 
 /* Status-based widths/colors */
-.agate-progress-fill.US { width: 0%; background: gray; }
-.agate-progress-fill.MD { width: 33%; background: var(--bs-green); }
-.agate-progress-fill.VD { width: 66%; background: var(--bs-green); }
-.agate-progress-fill.FM { width: 100%; background: var(--bs-red); }
-.agate-progress-fill.FV { width: 100%; background: var(--bs-red); }
-.agate-progress-fill.SU { width: 100%; background: var(--bs-green); }
-
+.agate-progress-fill.US {
+  width: 0%;
+  background: gray;
+}
+.agate-progress-fill.MD {
+  width: 33%;
+  background: var(--bs-green);
+}
+.agate-progress-fill.VD {
+  width: 66%;
+  background: var(--bs-green);
+}
+.agate-progress-fill.FM {
+  width: 100%;
+  background: var(--bs-red);
+}
+.agate-progress-fill.FV {
+  width: 100%;
+  background: var(--bs-red);
+}
+.agate-progress-fill.SU {
+  width: 100%;
+  background: var(--bs-green);
+}
 
 .agate-row-button {
   background-color: var(--bs-tertiary-bg);
@@ -46,7 +63,7 @@
   font-size: 0.8rem;
   line-height: 1;
   cursor: pointer;
-  margin: 2px
+  margin: 2px;
 }
 
 .agate-table {
